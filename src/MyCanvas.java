@@ -5,18 +5,22 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
 public class MyCanvas extends JPanel {
-    // Image in which we're going to draw
+    // we need an image to draw on - this is the actual "canvas"
     private Image image;
-    // Graphics2D object, used to draw on
+
+    // a "graphics context" object allows us to draw everything
     private Graphics2D g2;
-    // Mouse coordinates
+
+    // current & previous mouse coordinates, for dragging lines
     private int currentX, currentY, oldX, oldY;
 
     public MyCanvas() {
+        // don't know what this means
         setDoubleBuffered(false);
+
+        // when mouse pressed in our canvas, save "starting" coordinates
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-                // save coord x,y when mouse is pressed
                 oldX = e.getX();
                 oldY = e.getY();
             }
@@ -24,16 +28,18 @@ public class MyCanvas extends JPanel {
 
         addMouseMotionListener(new MouseMotionAdapter() {
             public void mouseDragged(MouseEvent e) {
-                // coord x,y when drag mouse
+                // user drags mouse - these are most recent coordinates
                 currentX = e.getX();
                 currentY = e.getY();
 
                 if (g2 != null) {
                     // draw line if g2 context not null
                     g2.drawLine(oldX, oldY, currentX, currentY);
-                    // refresh draw area to repaint
+
+                    // refresh canvas to display line
                     repaint();
-                    // store current coords x,y as olds x,y
+
+                    // make current coordinates old (for new ones to become current)
                     oldX = currentX;
                     oldY = currentY;
                 }
@@ -41,17 +47,25 @@ public class MyCanvas extends JPanel {
         });
     }
 
+    // `paintComponent` is called by `repaint` method,
+    // so it helps us update the canvas
+    @Override
     protected void paintComponent(Graphics g) {
         if (image == null) {
-            // image to draw null ==> we create
+            // if there's no image to draw on, make one
             image = createImage(getSize().width, getSize().height);
+
+            // get graphics context from image
             g2 = (Graphics2D) image.getGraphics();
-            // enable antialiasing
+
+            // enable antialiasing (makes graphics smoother by softening lines and blurring edges)
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            // clear draw area
+
+            // clear canvas using our own method
             clear();
         }
 
+        // update the image by drawing it again
         g.drawImage(image, 0, 0, null);
     }
 
