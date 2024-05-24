@@ -60,12 +60,12 @@ public class AppScreen extends JPanel implements ActionListener {
 //
         blackBtn = new JButton("Black");
         blackBtn.addActionListener(this);
-        blackBtn.setBorder(new RoundedBorder(5));
+        blackBtn.setBorder(new RoundedBorder(5)); //5 is the radius
         blackBtn.setBackground(Color.BLACK);
 
         redBtn = new JButton("Red");
         redBtn.addActionListener(this);
-        redBtn.setBorder(new RoundedBorder(5));
+        redBtn.setBorder(new RoundedBorder(5)); //5 is the radius
         redBtn.setBackground(Color.RED);
 
         orangeBtn = new JButton("Orange");
@@ -94,7 +94,7 @@ public class AppScreen extends JPanel implements ActionListener {
         magentaBtn.setBackground(Color.MAGENTA);
 
 
-//        // add buttons to toolbar
+        // add buttons to toolbar
         toolbar.add(redBtn);
         toolbar.add(orangeBtn);
         toolbar.add(yellowBtn);
