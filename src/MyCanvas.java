@@ -111,7 +111,9 @@ public class MyCanvas extends JPanel {
     }
 
 
-    public void setColor(Color color) {
-        this.color = color;
-    }
+//    public void setColor(Color color) {
+//        this.color = color;
+//    }
+
+
 }
