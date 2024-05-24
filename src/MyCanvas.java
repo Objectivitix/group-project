@@ -109,4 +109,11 @@ public class MyCanvas extends JPanel {
     public void blue() {
         g2.setPaint(Color.blue);
     }
+
+
+//    public void setColor(Color color) {
+//        this.color = color;
+//    }
+
+
 }
