@@ -86,6 +86,14 @@ public class MyCanvas extends JPanel {
         g2.setPaint(Color.red);
     }
 
+    public void orange() {
+        g2.setPaint(Color.orange);
+    }
+
+    public void yellow() {
+        g2.setPaint(Color.yellow);
+    }
+
     public void black() {
         g2.setPaint(Color.black);
     }
