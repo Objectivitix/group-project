@@ -14,7 +14,10 @@ public class AppScreen extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == clearBtn) {
             canvas.clear();
+
+            // reset chooseColorBtn, too
             chooseColorBtn.setBackground(null);
+            chooseColorBtn.setForeground(Color.BLACK);
         }
     }
     public AppScreen() {
@@ -41,8 +44,14 @@ public class AppScreen extends JPanel implements ActionListener {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Color c = JColorChooser.showDialog(null, "Select a color", Color.BLACK);
-                    // button itself showcases the chosen color (not when it's cleared bc that code is in a diff class lol i haven't figured that out yet)
+                    // button itself showcases the chosen color
                     chooseColorBtn.setBackground(c);
+
+                    // button text becomes white when BG is too dark
+                    if (Utils.calcLuminance(c) < 0.5) {
+                        chooseColorBtn.setForeground(Color.WHITE);
+                    }
+
                     canvas.setBrushColor(c);
                 }
             });
