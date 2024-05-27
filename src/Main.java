@@ -10,7 +10,10 @@ public class Main {
         JFrame frame = new JFrame("Swing Paint");
         frame.setSize(600, 600);
 
-        //make a SettingScreen frame for testing (Fiona)
+        // center it relative to entire device screen
+        frame.setLocationRelativeTo(null);
+
+        // make a SettingScreen frame for testing (Fiona)
         SettingScreen test = new SettingScreen();
 
         // make sure when frame is closed, program terminates

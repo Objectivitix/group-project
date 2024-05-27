@@ -64,6 +64,8 @@ public class MyCanvas extends JPanel {
             // enable antialiasing (makes graphics smoother by softening lines and blurring edges)
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+            g2.setStroke(new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
+
             // clear canvas using our own method
             clear();
         }
