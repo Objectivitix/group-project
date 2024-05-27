@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.border.Border;
 
 public class AppScreen extends JPanel implements ActionListener {
+    JButton chooseColorBtn;
     JButton clearBtn;
     MyCanvas canvas;
 
@@ -13,6 +14,7 @@ public class AppScreen extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == clearBtn) {
             canvas.clear();
+            chooseColorBtn.setBackground(null);
         }
     }
     public AppScreen() {
@@ -34,7 +36,7 @@ public class AppScreen extends JPanel implements ActionListener {
             clearBtn.setBackground(Color.WHITE);
 
             // chooseColorBtn code
-            JButton chooseColorBtn = new JButton("Choose Color");
+            chooseColorBtn = new JButton("Choose Color");
             chooseColorBtn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
