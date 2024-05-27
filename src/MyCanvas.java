@@ -14,6 +14,9 @@ public class MyCanvas extends JPanel {
     // current & previous mouse coordinates, for dragging lines
     private int currentX, currentY, oldX, oldY;
 
+    // color variable that will be changed with the help of colorChooser
+    Color color;
+
     public MyCanvas() {
         // don't know what this means
         setDoubleBuffered(false);
@@ -76,44 +79,22 @@ public class MyCanvas extends JPanel {
         g2.fillRect(0, 0, getSize().width, getSize().height);
 
         // set brush color back to black
-        g2.setPaint(Color.black);
+        setColor(Color.BLACK);
+        g2.setPaint(color);
 
         // update everything
         repaint();
     }
 
-    public void red() {
-        g2.setPaint(Color.red);
+    // sets the brush color to the chosen color
+    public void setBrushColor(Color color) {
+        g2.setPaint(color);
     }
 
-    public void orange() {
-        g2.setPaint(Color.orange);
+    // sets our color variable to our chosen color
+    public void setColor(Color color) {
+        this.color = color;
     }
-
-    public void yellow() {
-        g2.setPaint(Color.yellow);
-    }
-
-    public void black() {
-        g2.setPaint(Color.black);
-    }
-
-    public void magenta() {
-        g2.setPaint(Color.magenta);
-    }
-
-    public void green() {
-        g2.setPaint(Color.green);
-    }
-
-    public void blue() {
-        g2.setPaint(Color.blue);
-    }
-
-
-//    public void setColor(Color color) {
-//        this.color = color;
-//    }
 
 
 }
