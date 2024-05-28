@@ -16,10 +16,12 @@ public class MyCanvas extends JPanel {
     private int currentX, currentY, oldX, oldY;
 
     // color variable that will be changed with the help of colorChooser
-    Color color;
+    private Color color;
 
     // default background color
-    Color bgColor = Color.WHITE;
+    private Color bgColor = Color.WHITE;
+
+    private float brushSize;
 
     public MyCanvas() {
         // don't know what this means
@@ -113,6 +115,15 @@ public class MyCanvas extends JPanel {
         repaint();
     }
 
+    public void setBGImage(String filePath) {
+        image = Utils.createImage(filePath, getWidth(), getHeight());
+        g2 = (Graphics2D) image.getGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setPaint(color);
+        setBrushSize(brushSize);
+        repaint();
+    }
+
     // sets the brush color to the chosen color
     public void setBrushColor(Color color) {
         g2.setPaint(color);
@@ -124,6 +135,7 @@ public class MyCanvas extends JPanel {
     }
 
     public void setBrushSize(float size) {
+        brushSize = size;
         g2.setStroke(new BasicStroke(size, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
     }
 

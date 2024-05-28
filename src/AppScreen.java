@@ -45,7 +45,7 @@ public class AppScreen extends JPanel implements ActionListener {
             clearBtn.setBackground(Color.WHITE);
 
         // bgColorBtn code
-        bgColorBtn = new JButton("Background Color");
+        bgColorBtn = new JButton("BG Color");
         bgColorBtn.setBorder(new RoundedBorder(5));
         bgColorBtn.addActionListener(new ActionListener(){
             @Override
@@ -59,6 +59,33 @@ public class AppScreen extends JPanel implements ActionListener {
                         ? Color.WHITE : Color.BLACK);
 
                 canvas.setBGColor(bg);
+            }
+        });
+
+        JButton bgImageBtn = new JButton("BG Image");
+        bgImageBtn.addActionListener(e -> {
+            JFileChooser chooser = new JFileChooser();
+
+            chooser.setFileFilter(new FileFilter() {
+                @Override
+                public boolean accept(File file) {
+                    if (file.isDirectory()) {
+                        return true;
+                    }
+
+                    return file.getName().matches("(?i).*(\\.jpg|\\.jpeg|\\.png)");
+                }
+
+                @Override
+                public String getDescription() {
+                    return "Stationary image files (JPG or PNG)";
+                }
+            });
+
+            if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+                canvas.setBGImage(chooser.getSelectedFile().getAbsolutePath());
+                chooseColorBtn.setBackground(null);
+                chooseColorBtn.setForeground(Color.BLACK);
             }
         });
 
@@ -77,6 +104,7 @@ public class AppScreen extends JPanel implements ActionListener {
                         Utils.calcLuminance(c) < 0.5
                             ? Color.WHITE : Color.BLACK);
 
+                    canvas.setColor(c);
                     canvas.setBrushColor(c);
                 }
             });
@@ -104,6 +132,7 @@ public class AppScreen extends JPanel implements ActionListener {
             // add buttons to toolbar
             toolbar.add(chooseColorBtn);
             toolbar.add(bgColorBtn);
+            toolbar.add(bgImageBtn);
             toolbar.add(sizeSlider);
             toolbar.add(sizeLabel);
             toolbar.add(clearBtn);
