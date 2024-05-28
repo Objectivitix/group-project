@@ -107,6 +107,7 @@ public class MyCanvas extends JPanel {
 
         // set setPaint() method back to chosen color
         setColor(color);
+        g2.setPaint(color);
 
         // update everything
         repaint();

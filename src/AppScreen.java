@@ -54,9 +54,9 @@ public class AppScreen extends JPanel implements ActionListener {
                 bgColorBtn.setBackground(bg);
 
                 // button text becomes white when BG is too dark
-                if (Utils.calcLuminance(bg) < 0.5) {
-                    chooseColorBtn.setForeground(Color.WHITE);
-                }
+                bgColorBtn.setForeground(
+                    Utils.calcLuminance(bg) < 0.5
+                        ? Color.WHITE : Color.BLACK);
 
                 canvas.setBGColor(bg);
             }
