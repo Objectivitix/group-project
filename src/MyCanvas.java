@@ -18,6 +18,9 @@ public class MyCanvas extends JPanel {
     // color variable that will be changed with the help of colorChooser
     Color color;
 
+    // default background color
+    Color bgColor = Color.WHITE;
+
     public MyCanvas() {
         // don't know what this means
         setDoubleBuffered(false);
@@ -85,6 +88,25 @@ public class MyCanvas extends JPanel {
         // set brush color back to black
         setColor(Color.BLACK);
         g2.setPaint(color);
+
+        // update everything
+        repaint();
+    }
+
+    // if i remove this method, bg doesn't update correctly
+    public void colorBG() {
+        // update everything
+        repaint();
+    }
+
+    public void setBGColor(Color bg) {
+        this.bgColor = bg;
+
+        g2.setPaint(bgColor);
+        g2.fillRect(0, 0, getSize().width, getSize().height);
+
+        // set setPaint() method back to chosen color
+        setColor(color);
 
         // update everything
         repaint();
