@@ -1,8 +1,9 @@
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.border.Border;
+import java.io.File;
 
 public class AppScreen extends JPanel implements ActionListener {
     JButton chooseColorBtn;
@@ -20,7 +21,7 @@ public class AppScreen extends JPanel implements ActionListener {
         }
     }
     public AppScreen() {
-
+            this.setPreferredSize(new Dimension(600, 600));
             // make this screen border layout
             this.setLayout(new BorderLayout());
 
@@ -67,11 +68,20 @@ public class AppScreen extends JPanel implements ActionListener {
                 canvas.setBrushSize(realSize);
             });
 
+            JButton downloadBtn = new JButton("Save As");
+            downloadBtn.addActionListener(e -> {
+                JFileChooser chooser = new JFileChooser();
+                if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+                    canvas.saveAs(chooser.getSelectedFile().getAbsolutePath());
+                }
+            });
+
             // add buttons to toolbar
             toolbar.add(chooseColorBtn);
             toolbar.add(sizeSlider);
             toolbar.add(sizeLabel);
             toolbar.add(clearBtn);
+            toolbar.add(downloadBtn);
 
 
             // add toolbar ABOVE canvas (hence NORTH)

@@ -6,9 +6,7 @@ public class Main {
         System.out.println("Matteo was here");
         System.out.println("Fiona was here");
 
-        // make a frame with size
         JFrame frame = new JFrame("Swing Paint");
-        frame.setSize(600, 600);
 
         // center it relative to entire device screen
         frame.setLocationRelativeTo(null);
@@ -21,6 +19,8 @@ public class Main {
 
         // add top-level panel to frame (this helps swap screens later)
         frame.add(new AppScreen());
+
+        frame.pack();
 
         // make everything visible
         frame.setVisible(true);

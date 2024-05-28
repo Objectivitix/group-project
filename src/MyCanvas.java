@@ -1,8 +1,9 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
 
 public class MyCanvas extends JPanel {
     // we need an image to draw on - this is the actual "canvas"
@@ -101,5 +102,19 @@ public class MyCanvas extends JPanel {
 
     public void setBrushSize(float size) {
         g2.setStroke(new BasicStroke(size, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
+    }
+
+    public void saveAs(String filePath) {
+        Rectangle rect = this.getBounds();
+        System.out.println(rect);
+        BufferedImage image = new BufferedImage(rect.width, rect.height, BufferedImage.TYPE_INT_ARGB);
+        this.paint(image.getGraphics());
+
+        try {
+            // Use the ImageIO to write the image to a file
+            ImageIO.write(image, "png", new File(filePath));
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 }
