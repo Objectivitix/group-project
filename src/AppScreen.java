@@ -9,7 +9,6 @@ public class AppScreen extends JPanel implements ActionListener {
     JButton clearBtn;
     MyCanvas canvas;
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == clearBtn) {
@@ -48,16 +47,30 @@ public class AppScreen extends JPanel implements ActionListener {
                     chooseColorBtn.setBackground(c);
 
                     // button text becomes white when BG is too dark
-                    if (Utils.calcLuminance(c) < 0.5) {
-                        chooseColorBtn.setForeground(Color.WHITE);
-                    }
+                    chooseColorBtn.setForeground(
+                        Utils.calcLuminance(c) < 0.5
+                            ? Color.WHITE : Color.BLACK);
 
                     canvas.setBrushColor(c);
                 }
             });
 
+            JLabel sizeLabel = new JLabel("Size: 1");
+
+            JSlider sizeSlider = new JSlider(1, 100, 8);
+            sizeSlider.setPreferredSize(new Dimension(200, 20));
+            sizeSlider.addChangeListener(e -> {
+                float rawValue = sizeSlider.getValue();
+                float realSize = (float) (2 * Math.pow(1.04723, rawValue) - 1.9);
+
+                sizeLabel.setText(String.format("Size: %.1f", realSize));
+                canvas.setBrushSize(realSize);
+            });
+
             // add buttons to toolbar
             toolbar.add(chooseColorBtn);
+            toolbar.add(sizeSlider);
+            toolbar.add(sizeLabel);
             toolbar.add(clearBtn);
 
 
