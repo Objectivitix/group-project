@@ -85,8 +85,8 @@ public class AppScreen extends JPanel implements ActionListener {
 
             if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
                 canvas.setBGImage(chooser.getSelectedFile().getAbsolutePath());
-                chooseColorBtn.setBackground(null);
-                chooseColorBtn.setForeground(Color.BLACK);
+                bgColorBtn.setBackground(null);
+                bgColorBtn.setForeground(Color.BLACK);
             }
         });
 
