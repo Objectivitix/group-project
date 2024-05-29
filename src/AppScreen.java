@@ -63,6 +63,7 @@ public class AppScreen extends JPanel implements ActionListener {
         });
 
         JButton bgImageBtn = new JButton("BG Image");
+        bgImageBtn.setBorder(new RoundedBorder(5));
         bgImageBtn.addActionListener(e -> {
             JFileChooser chooser = new JFileChooser();
 
@@ -122,6 +123,7 @@ public class AppScreen extends JPanel implements ActionListener {
             });
 
             JButton downloadBtn = new JButton("Save As");
+            downloadBtn.setBorder(new RoundedBorder(5));
             downloadBtn.addActionListener(e -> {
                 JFileChooser chooser = new JFileChooser();
                 if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
