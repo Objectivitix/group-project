@@ -3,6 +3,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Utils {
+    public static Color colorInput(Color initialColor) {
+        return JColorChooser.showDialog(
+            null, "Select background color", initialColor);
+    }
+
     // calculates perceived brightness of an RGB color
     // as a double between 0 and 1, based on W3 formula:
     // https://www.w3.org/TR/AERT/#color-contrast

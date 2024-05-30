@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.Random;
 
 public class MyCanvas extends JPanel {
     // we need an image to draw on - this is the actual "canvas"
@@ -15,16 +16,12 @@ public class MyCanvas extends JPanel {
     // current & previous mouse coordinates, for dragging lines
     private int currentX, currentY, oldX, oldY;
 
-    // color variable that will be changed with the help of colorChooser
+    // toolbar changes these variables, and the GUI reflects it
     private Color color;
-
-    // default background color
-    private Color bgColor = Color.WHITE;
-
+    private Color bgColor;
     private float brushSize;
 
     public MyCanvas() {
-        // don't know what this means
         setDoubleBuffered(false);
 
         // when mouse pressed in our canvas, save "starting" coordinates
@@ -83,20 +80,13 @@ public class MyCanvas extends JPanel {
 
     // the following methods are used in toolbar
     public void clear() {
-        // clearing essentially means drawing white rectangle over entire canvas
+        // to clear everything is to draw white rectangle over entire canvas
         g2.setPaint(Color.white);
         g2.fillRect(0, 0, getSize().width, getSize().height);
 
         // set brush color back to black
         setColor(Color.BLACK);
-        g2.setPaint(color);
 
-        // update everything
-        repaint();
-    }
-
-    // if i remove this method, bg doesn't update correctly
-    public void colorBG() {
         // update everything
         repaint();
     }
@@ -109,7 +99,6 @@ public class MyCanvas extends JPanel {
 
         // set setPaint() method back to chosen color
         setColor(color);
-        g2.setPaint(color);
 
         // update everything
         repaint();
@@ -119,7 +108,7 @@ public class MyCanvas extends JPanel {
         image = Utils.createImage(filePath, getWidth(), getHeight());
         g2 = (Graphics2D) image.getGraphics();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setPaint(color);
+        setColor(color);
         setBrushSize(brushSize);
         repaint();
     }
@@ -132,24 +121,24 @@ public class MyCanvas extends JPanel {
     // sets our color variable to our chosen color
     public void setColor(Color color) {
         this.color = color;
+        g2.setPaint(color);
     }
 
     public void setBrushSize(float size) {
-        brushSize = size;
+        this.brushSize = size;
         g2.setStroke(new BasicStroke(size, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
     }
 
     public void saveAs(String filePath) {
         Rectangle rect = this.getBounds();
-        System.out.println(rect);
         BufferedImage image = new BufferedImage(rect.width, rect.height, BufferedImage.TYPE_INT_ARGB);
         this.paint(image.getGraphics());
 
         try {
             // Use the ImageIO to write the image to a file
             ImageIO.write(image, "png", new File(filePath));
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
