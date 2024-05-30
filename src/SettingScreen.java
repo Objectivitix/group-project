@@ -10,7 +10,7 @@ public class SettingScreen extends JFrame{
     private int length;
     private boolean hasHeight;
     private boolean hasLength;
-    private Color c;
+    private Color c = Color.WHITE;
     private JFrame settingFrame = new JFrame();
     private JPanel topPanel = new JPanel();
     private JPanel middlePanel = new JPanel();

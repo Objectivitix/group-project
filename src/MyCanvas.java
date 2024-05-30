@@ -65,7 +65,7 @@ public class MyCanvas extends JPanel {
     protected void paintComponent(Graphics g) {
         if (image == null) {
             // if there's no image to draw on, make one
-            image = createImage(getSize().width, getSize().height);
+            image = createImage(getWidth(), getHeight());
 
             // get graphics context from image
             g2 = (Graphics2D) image.getGraphics();
