@@ -21,6 +21,10 @@ public class MyCanvas extends JPanel {
     private Color bgColor;
     private float brushSize;
 
+    //boolean to determine eraser color
+    private boolean hasBGImage = false;
+
+
     public MyCanvas() {
         setDoubleBuffered(false);
 
@@ -140,5 +144,17 @@ public class MyCanvas extends JPanel {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Color getBgColor() {
+        return bgColor;
+    }
+
+    public boolean getHasBGImage() {
+        return hasBGImage;
+    }
+
+    public void setHasBGImage(boolean hasBGImage) {
+        this.hasBGImage = hasBGImage;
     }
 }

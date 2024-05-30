@@ -9,7 +9,7 @@ import java.io.File;
 
 public class Toolbar extends JPanel implements ActionListener, ChangeListener {
     private MyCanvas canvas;
-    private JButton chooseColorBtn, bgColorBtn, bgImageBtn, clearBtn, downloadBtn;
+    private JButton chooseColorBtn, bgColorBtn, bgImageBtn, clearBtn, downloadBtn, eraseBtn;
     private JSlider sizeSlider;
     private JLabel sizeLabel;
 
@@ -45,9 +45,14 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
         downloadBtn.setBorder(new RoundedBorder(5));
         downloadBtn.addActionListener(this);
 
+        eraseBtn = new JButton("Erase");
+        eraseBtn.setBorder(new RoundedBorder(5));
+        eraseBtn.addActionListener(this);
+
         // add buttons to toolbar
         add(clearBtn);
         add(chooseColorBtn);
+        add(eraseBtn);
         add(bgColorBtn);
         add(bgImageBtn);
         add(sizeSlider);
@@ -62,6 +67,7 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
         if (e.getSource() == bgColorBtn) bgColor();
         if (e.getSource() == bgImageBtn) bgImage();
         if (e.getSource() == downloadBtn) download();
+        if (e.getSource() == eraseBtn) erase();
     }
 
     @Override
@@ -129,6 +135,7 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
             canvas.setBGImage(chooser.getSelectedFile().getAbsolutePath());
             bgColorBtn.setBackground(null);
             bgColorBtn.setForeground(Color.BLACK);
+            canvas.setHasBGImage(true);
         }
     }
 
@@ -145,6 +152,14 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
 
         if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             canvas.saveAs(chooser.getSelectedFile().getAbsolutePath());
+        }
+    }
+
+    private void erase() {
+        if (canvas.getHasBGImage()) {
+            canvas.setBrushColor(Color.WHITE);
+        } else {
+            canvas.setBrushColor(canvas.getBgColor());
         }
     }
 }
