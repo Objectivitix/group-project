@@ -9,7 +9,7 @@ import java.io.File;
 
 public class Toolbar extends JPanel implements ActionListener, ChangeListener {
     private MyCanvas canvas;
-    private JButton chooseColorBtn, bgColorBtn, bgImageBtn, clearBtn, downloadBtn, eraseBtn;
+    private JButton chooseColorBtn, bgColorBtn, bgImageBtn, resetBtn, downloadBtn, eraseBtn;
     private JSlider sizeSlider;
     private JLabel sizeLabel;
 
@@ -18,11 +18,11 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
 
         this.canvas = canvas;
 
-        // create clearBtn bound to actionPerformed logic below
-        clearBtn = new JButton("Clear");
-        clearBtn.setBorder(new RoundedBorder(5));  // 5 is the radius
-        clearBtn.setBackground(Color.WHITE);
-        clearBtn.addActionListener(this);
+        // create resetBtn bound to actionPerformed logic below
+        resetBtn = new JButton("Reset");
+        resetBtn.setBorder(new RoundedBorder(5));  // 5 is the radius
+        resetBtn.setBackground(Color.WHITE);
+        resetBtn.addActionListener(this);
 
         bgColorBtn = new JButton("BG Color");
         bgColorBtn.setBorder(new RoundedBorder(5));
@@ -50,7 +50,7 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
         eraseBtn.addActionListener(this);
 
         // add buttons to toolbar
-        add(clearBtn);
+        add(resetBtn);
         add(chooseColorBtn);
         add(eraseBtn);
         add(bgColorBtn);
@@ -62,7 +62,7 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == clearBtn) clear();
+        if (e.getSource() == resetBtn) reset();
         if (e.getSource() == chooseColorBtn) color();
         if (e.getSource() == bgColorBtn) bgColor();
         if (e.getSource() == bgImageBtn) bgImage();
@@ -75,8 +75,8 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
         if (e.getSource() == sizeSlider) sizeSlide();
     }
 
-    private void clear() {
-        canvas.clear();
+    private void reset() {
+        canvas.reset();
 
         // reset chooseColorBtn and bgColorBtn, too
         chooseColorBtn.setBackground(null);

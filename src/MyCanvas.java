@@ -76,8 +76,8 @@ public class MyCanvas extends JPanel {
             // set initial brush size to 1
             setBrushSize(1);
 
-            // clear canvas using our own method
-            clear();
+            // reset canvas using our own method
+            reset();
 
             setBGColor(bgColor);
         }
@@ -87,8 +87,8 @@ public class MyCanvas extends JPanel {
     }
 
     // the following methods are used in toolbar
-    public void clear() {
-        // to clear everything is to draw white rectangle over entire canvas
+    public void reset() {
+        // to reset everything is to draw white rectangle over entire canvas
         g2.setPaint(Color.white);
         g2.fillRect(0, 0, getSize().width, getSize().height);
 
