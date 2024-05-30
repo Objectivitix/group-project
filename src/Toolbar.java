@@ -50,13 +50,13 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
         eraseBtn.addActionListener(this);
 
         // add buttons to toolbar
-        add(resetBtn);
         add(chooseColorBtn);
         add(eraseBtn);
         add(bgColorBtn);
         add(bgImageBtn);
         add(sizeSlider);
         add(sizeLabel);
+        add(resetBtn);
         add(downloadBtn);
     }
 
