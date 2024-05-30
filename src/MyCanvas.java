@@ -25,25 +25,10 @@ public class MyCanvas extends JPanel {
     private boolean hasBGImage = false;
 
 
-    public MyCanvas() {
+    public MyCanvas(Color bg) {
+        bgColor = bg;
+
         setDoubleBuffered(false);
-        if (image == null) {
-            // if there's no image to draw on, make one
-            image = createImage(getSize().width, getSize().height);
-
-            // get graphics context from image
-            g2 = (Graphics2D) image.getGraphics();
-
-            // enable antialiasing (makes graphics smoother by softening lines and blurring edges)
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-            // set initial brush size to 1
-            setBrushSize(1);
-
-            // clear canvas using our own method
-            clear();
-        }
-        setBGColor(Main.test.getInitBgColor());
 
         // when mouse pressed in our canvas, save "starting" coordinates
         addMouseListener(new MouseAdapter() {
@@ -78,22 +63,24 @@ public class MyCanvas extends JPanel {
     // so it helps us update the canvas
     @Override
     protected void paintComponent(Graphics g) {
-//        if (image == null) {
-//            // if there's no image to draw on, make one
-//            image = createImage(getSize().width, getSize().height);
-//
-//            // get graphics context from image
-//            g2 = (Graphics2D) image.getGraphics();
-//
-//            // enable antialiasing (makes graphics smoother by softening lines and blurring edges)
-//            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-//
-//            // set initial brush size to 1
-//            setBrushSize(1);
-//
-//            // clear canvas using our own method
-//            clear();
-//        }
+        if (image == null) {
+            // if there's no image to draw on, make one
+            image = createImage(getSize().width, getSize().height);
+
+            // get graphics context from image
+            g2 = (Graphics2D) image.getGraphics();
+
+            // enable antialiasing (makes graphics smoother by softening lines and blurring edges)
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            // set initial brush size to 1
+            setBrushSize(1);
+
+            // clear canvas using our own method
+            clear();
+
+            setBGColor(bgColor);
+        }
 
         // update the image by drawing it again
         g.drawImage(image, 0, 0, null);

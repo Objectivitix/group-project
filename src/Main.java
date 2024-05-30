@@ -16,9 +16,6 @@ public class Main {
         // make sure when frame is closed, program terminates
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // add top-level panel to frame (this helps swap screens later)
-        frame.add(new AppScreen());
-
         frame.pack();
 
         // make everything visible

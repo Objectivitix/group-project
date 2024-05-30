@@ -110,7 +110,7 @@ public class SettingScreen extends JFrame{
                         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
                         // add top-level panel to frame (this helps swap screens later)
-                        frame.add(new AppScreen());
+                        frame.add(new AppScreen(c));
 
                         frame.pack();
 
@@ -124,7 +124,7 @@ public class SettingScreen extends JFrame{
                         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
                         // add top-level panel to frame (this helps swap screens later)
-                        frame.add(new AppScreen());
+                        frame.add(new AppScreen(c));
 
                         // make everything visible
                         frame.setVisible(true);
