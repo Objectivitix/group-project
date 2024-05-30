@@ -1,14 +1,14 @@
 import javax.swing.*;
 
 public class Main {
+
+    // make a SettingScreen frame for testing (Fiona)
+    public static SettingScreen test = new SettingScreen();
     public static void main(String[] args) {
         JFrame frame = new JFrame("Swing Paint");
 
         // center it relative to entire device screen
         frame.setLocationRelativeTo(null);
-
-        // make a SettingScreen frame for testing (Fiona)
-        SettingScreen test = new SettingScreen();
 
         ClickandDrop lol = new ClickandDrop();
         lol.setVisible(true);

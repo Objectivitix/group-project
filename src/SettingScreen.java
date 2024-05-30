@@ -1,16 +1,16 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.InputMismatchException;
 
 public class SettingScreen extends JFrame{
     //Create variables
-    //save file??
     //upload image??
     public int height;
     private int length;
     private boolean hasHeight;
     private boolean hasLength;
+    private Color c;
     private JFrame settingFrame = new JFrame();
     private JPanel topPanel = new JPanel();
     private JPanel middlePanel = new JPanel();
@@ -34,13 +34,12 @@ public class SettingScreen extends JFrame{
         settingFrame.add(bottomPanel);
 
         //top label - textFields
+        JLabel warning = new JLabel("<html>Dimensions should be greater than 300 each, <br> otherwise canvas size is set to 600x600 automatically.</html>");
+        topPanel.add(warning);
         JLabel askHeight = new JLabel("Enter canvas height in pixels:");
         topPanel.add(askHeight);//Add enter label to textPanel
         JTextField enterHeight = new JTextField(10);//Create textbox for entering height
         topPanel.add(enterHeight);//adds name textField to textPanel
-
-        JLabel warning = new JLabel("<html>Dimensions should be greater than 300 each, <br> otherwise canvas size is set to 600x600 automatically.</html>");
-        topPanel.add(warning);
 
         JLabel askLength = new JLabel("Enter canvas length in pixels:");
         topPanel.add(askLength);//Add enter label to textPanel
@@ -48,15 +47,17 @@ public class SettingScreen extends JFrame{
         topPanel.add(enterLength);//add textField to textPanel
 
         // middle label dropdown
-        JLabel askColor = new JLabel("Choose canvas color:");
-        middlePanel.add(askColor);//Add enter label to textPanel
+        /*JLabel askColor = new JLabel("Choose canvas color:");
+        middlePanel.add(askColor);//Add enter label to textPanel*/
+        JButton pickColor = new JButton("Choose background color");
+        middlePanel.add(pickColor);
 
-        //weird dropdown code?
+        /*//weird dropdown code?
         String[] options = {"Green", "Blue", "Red", "Orange"};
         JComboBox<String> comboBox = new JComboBox<>(options);
         comboBox.setSelectedIndex(0); // Set the default selected item
 
-        middlePanel.add(comboBox);//add textField to textPanel
+        middlePanel.add(comboBox);//add textField to textPanel*/
 
         //bottom panel submit button & message label
         JLabel message = new JLabel("");
@@ -67,32 +68,16 @@ public class SettingScreen extends JFrame{
 
         settingFrame.setVisible(true);//make frame visible
 
-
-        enterHeight.addActionListener(new ActionListener() {//Create new ActionListener to detect textField interaction
+        pickColor.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {//when word is entered and enter is clicked
-                try{
-                    height = Integer.parseInt(enterHeight.getText());//assign text from textField to height variable, parse to int
-                    //enterHeight.setText("");//replace user's input with nothing
-                    hasHeight = true;
-                } catch (Exception o){
-                    enterHeight.setText("");
-                    message.setText("Please enter an integer!");
-                }
-            }
-        });
-
-        enterLength.addActionListener(new ActionListener() {//Create new ActionListener to detect textField interaction
-            @Override
-            public void actionPerformed(ActionEvent e) {//when word is entered and enter is clicked
-                try {
-                    length = Integer.parseInt(enterLength.getText());//assign text from textField to length variable, parse to int
-                    //enterHeight.setText("");//replace user's input with nothing
-                    hasLength = true;
-                } catch (Exception o){
-                    enterLength.setText("");
-                    message.setText("Please enter an integer!");
-                }
+            public void actionPerformed(ActionEvent e) {
+                //c = Color.BLUE;
+                c = JColorChooser.showDialog(null, "Select a color", Color.BLACK);
+                pickColor.setBackground(c);
+                // button text becomes white when BG is too dark
+                pickColor.setForeground(
+                        Utils.calcLuminance(c) < 0.5
+                                ? Color.WHITE : Color.BLACK);
             }
         });
 
@@ -104,8 +89,18 @@ public class SettingScreen extends JFrame{
                     //enterHeight.setText("");//replace user's input with nothing
                     hasHeight = true;
                 } catch (Exception o){
-                    enterHeight.setText("");
-                    message.setText("Both numbers must be integers!");
+                    //enterHeight.setText("");
+                    message.setText("Height must be an integer!");
+                    settingFrame.repaint();
+                }
+                try{
+                    length = Integer.parseInt(enterHeight.getText());//assign text from textField to height variable, parse to int
+                    //enterHeight.setText("");//replace user's input with nothing
+                    hasLength = true;
+                } catch (Exception o){
+                    //enterLength.setText("");
+                    message.setText("Length must be an integer!");
+                    settingFrame.repaint();
                 }
                 if(hasHeight && hasLength) {
                     if(height >= 300 && length >=300) {
@@ -117,8 +112,11 @@ public class SettingScreen extends JFrame{
                         // add top-level panel to frame (this helps swap screens later)
                         frame.add(new AppScreen());
 
+                        frame.pack();
+
                         // make everything visible
                         frame.setVisible(true);
+
                     } else{
                         JFrame frame = new JFrame("Swing Paint");
                         frame.setSize(600, 600);
@@ -141,4 +139,20 @@ public class SettingScreen extends JFrame{
     public int getHeight(){
         return height;
     }
+    public Color getInitBgColor(){
+        return c;
     }
+    /*public void setBGColor(Color bg) {
+        this.bgColor = bg;
+
+        g2.setPaint(bgColor);
+        g2.fillRect(0, 0, getSize().width, getSize().height);
+
+        // set setPaint() method back to chosen color
+        setColor(color);
+        g2.setPaint(color);
+
+        // update everything
+        repaint();
+    }*/
+}
