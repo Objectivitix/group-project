@@ -14,6 +14,9 @@ public class Main {
         // make a SettingScreen frame for testing (Fiona)
         SettingScreen test = new SettingScreen();
 
+        ClickandDrop lol = new ClickandDrop();
+        lol.setVisible(true);
+
         // make sure when frame is closed, program terminates
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
