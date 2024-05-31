@@ -9,7 +9,7 @@ import java.io.File;
 
 public class Toolbar extends JPanel implements ActionListener, ChangeListener {
     private MyCanvas canvas;
-    private JButton chooseColorBtn, bgColorBtn, bgImageBtn, resetBtn, downloadBtn, eraseBtn;
+    private JButton colorBtn, bgColorBtn, bgImageBtn, resetBtn, downloadBtn, eraseBtn;
     private JSlider sizeSlider;
     private JLabel sizeLabel;
 
@@ -32,16 +32,16 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
         bgImageBtn.setBorder(new RoundedBorder(5));
         bgImageBtn.addActionListener(this);
 
-        chooseColorBtn = new JButton("Choose Color");
-        chooseColorBtn.setBorder(new RoundedBorder(5));
-        chooseColorBtn.addActionListener(this);
+        colorBtn = new JButton("Brush Color");
+        colorBtn.setBorder(new RoundedBorder(5));
+        colorBtn.addActionListener(this);
 
         sizeLabel = new JLabel("Size: 1");
         sizeSlider = new JSlider(1, 100, 8);
         sizeSlider.setPreferredSize(new Dimension(200, 20));
         sizeSlider.addChangeListener(this);
 
-        downloadBtn = new JButton("Save As");
+        downloadBtn = new JButton(Utils.icon("src/save-as.png", 15, 15));
         downloadBtn.setBorder(new RoundedBorder(5));
         downloadBtn.addActionListener(this);
 
@@ -50,7 +50,7 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
         eraseBtn.addActionListener(this);
 
         // add buttons to toolbar
-        add(chooseColorBtn);
+        add(colorBtn);
         add(eraseBtn);
         add(bgColorBtn);
         add(bgImageBtn);
@@ -63,7 +63,7 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == resetBtn) reset();
-        if (e.getSource() == chooseColorBtn) color();
+        if (e.getSource() == colorBtn) color();
         if (e.getSource() == bgColorBtn) bgColor();
         if (e.getSource() == bgImageBtn) bgImage();
         if (e.getSource() == downloadBtn) download();
@@ -79,8 +79,8 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
         canvas.reset();
 
         // reset chooseColorBtn and bgColorBtn, too
-        chooseColorBtn.setBackground(null);
-        chooseColorBtn.setForeground(Color.BLACK);
+        colorBtn.setBackground(null);
+        colorBtn.setForeground(Color.BLACK);
         bgColorBtn.setBackground(null);
         bgColorBtn.setForeground(Color.BLACK);
     }
@@ -89,10 +89,10 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
         Color c = Utils.colorInput(Color.BLACK);
 
         // button itself showcases the chosen color
-        chooseColorBtn.setBackground(c);
+        colorBtn.setBackground(c);
 
         // button text becomes white when BG is too dark
-        chooseColorBtn.setForeground(
+        colorBtn.setForeground(
             Utils.calcLuminance(c) < 0.5
                 ? Color.WHITE : Color.BLACK);
 
@@ -161,6 +161,6 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
         } else {
             canvas.setBrushColor(canvas.getBgColor());
         }
-        chooseColorBtn.setBackground(canvas.getBgColor());
+        colorBtn.setBackground(canvas.getBgColor());
     }
 }
