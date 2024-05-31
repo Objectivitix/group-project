@@ -36,8 +36,12 @@ public class Utils {
             return (BufferedImage) image;
         }
 
-        BufferedImage bi = new BufferedImage(image.getWidth(null), image.getHeight(null),
-            BufferedImage.TYPE_INT_RGB);
+        BufferedImage bi = new BufferedImage(
+            image.getWidth(null),
+            image.getHeight(null),
+            BufferedImage.TYPE_INT_RGB
+        );
+
         Graphics g = bi.getGraphics();
         g.drawImage(image, 0, 0, null);
         g.dispose();
