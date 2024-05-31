@@ -45,7 +45,7 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
         downloadBtn.setBorder(new RoundedBorder(5));
         downloadBtn.addActionListener(this);
 
-        eraseBtn = new JButton("Erase");
+        eraseBtn = new JButton(Utils.icon("src/eraser.png", 15, 15));
         eraseBtn.setBorder(new RoundedBorder(5));
         eraseBtn.addActionListener(this);
 
@@ -161,5 +161,6 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
         } else {
             canvas.setBrushColor(canvas.getBgColor());
         }
+        chooseColorBtn.setBackground(canvas.getBgColor());
     }
 }

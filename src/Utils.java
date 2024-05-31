@@ -19,13 +19,17 @@ public class Utils {
         ) / 255;
     }
 
+    public static ImageIcon icon(String filePath, int width, int height) {
+        return new ImageIcon(
+            new ImageIcon(filePath)
+                .getImage()
+                .getScaledInstance(width, height, Image.SCALE_SMOOTH)
+        );
+    }
+
     // creates an Image of specified dimensions
     public static Image createImage(String filePath, int width, int height) {
-        return toBufferedImage(new ImageIcon(
-            new ImageIcon(filePath)
-            .getImage()
-            .getScaledInstance(width, height, Image.SCALE_SMOOTH)
-        ).getImage());
+        return toBufferedImage(icon(filePath, width, height).getImage());
     }
 
     private static BufferedImage toBufferedImage(Image image) {
