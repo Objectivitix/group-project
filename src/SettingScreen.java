@@ -16,6 +16,7 @@ public class SettingScreen extends JFrame{
     private JPanel middlePanel = new JPanel();
     private JPanel bottomPanel = new JPanel();
     public SettingScreen() {
+        setTitle("New canvas");
         //set submit conditions to false
         hasLength = false;
         hasHeight = false;
@@ -97,7 +98,6 @@ public class SettingScreen extends JFrame{
                     height = Integer.parseInt(enterHeight.getText());//assign text from textField to height variable, parse to int
                     hasHeight = true;//accept as valid height
                 } catch (Exception o){
-                    System.out.println("Oh no!");
                     message.setText("Height must be an integer!");
                     settingFrame.repaint();
                 }
@@ -105,7 +105,6 @@ public class SettingScreen extends JFrame{
                     length = Integer.parseInt(enterLength.getText());//assign text from textField to height variable, parse to int
                     hasLength = true;//accept as valid length
                 } catch (Exception o){
-                    System.out.println("Oh no!");
                     message.setText("Length must be an integer!");
                     settingFrame.repaint();
                 }
@@ -117,7 +116,7 @@ public class SettingScreen extends JFrame{
                         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
                         // add top-level panel to frame (this helps swap screens later)
-                        frame.add(new AppScreen(c));
+                        frame.add(new AppScreen(c, height, length));
 
                         frame.pack();
 
@@ -133,7 +132,7 @@ public class SettingScreen extends JFrame{
                         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
                         // add top-level panel to frame (this helps swap screens later)
-                        frame.add(new AppScreen(c));
+                        frame.add(new AppScreen(c, height, length));
 
                         frame.pack();
 

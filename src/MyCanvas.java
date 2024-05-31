@@ -25,7 +25,7 @@ public class MyCanvas extends JPanel {
     private boolean hasBGImage = false;
 
 
-    public MyCanvas(Color bg) {
+    public MyCanvas(Color bg, int h, int l) {
         bgColor = bg;
 
         setDoubleBuffered(false);
