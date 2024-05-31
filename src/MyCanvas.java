@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.Random;
 
 public class MyCanvas extends JPanel {
     // we need an image to draw on - this is the actual "canvas"
@@ -25,7 +24,7 @@ public class MyCanvas extends JPanel {
     private boolean hasBGImage = false;
 
 
-    public MyCanvas(Color bg, int h, int l) {
+    public MyCanvas(Color bg) {
         bgColor = bg;
 
         setDoubleBuffered(false);

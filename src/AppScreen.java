@@ -8,7 +8,7 @@ public class AppScreen extends JPanel {
         this.setLayout(new BorderLayout());
 
         // create and add canvas to screen
-        MyCanvas canvas = new MyCanvas(bg,h,l);
+        MyCanvas canvas = new MyCanvas(bg);
         this.add(canvas, BorderLayout.CENTER);
 
         Toolbar toolbar = new Toolbar(canvas);

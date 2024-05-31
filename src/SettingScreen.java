@@ -39,7 +39,7 @@ public class SettingScreen extends JFrame{
 
 
         //top label - textFields
-        JLabel warning = new JLabel("<html>Dimensions should be greater than 300 each, <br> otherwise canvas size is set to 600x600 automatically.</html>");
+        JLabel warning = new JLabel("<html>Dimensions should be greater than 300 each, <br> otherwise canvas size is set to 700x700 automatically.</html>");
         topPanel.add(warning);
 
         JLabel askHeight = new JLabel("Enter canvas height in pixels:");
@@ -116,7 +116,7 @@ public class SettingScreen extends JFrame{
                 if(hasHeight && hasLength) {
                     if(height >= 300 && length >=300) {
                         JFrame frame = new JFrame("Swing Paint");
-                        frame.setSize(length, height);
+
                         // make sure when frame is closed, program terminates
                         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -131,14 +131,13 @@ public class SettingScreen extends JFrame{
                         //close setting screen
                         settingFrame.dispose();
                     } else{
-                        System.out.println("hi");
                         JFrame frame = new JFrame("Swing Paint");
-                        frame.setSize(600, 600);
+
                         // make sure when frame is closed, program terminates
                         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
                         // add top-level panel to frame (this helps swap screens later)
-                        frame.add(new AppScreen(c, height, length));
+                        frame.add(new AppScreen(c, 700, 700));
 
                         frame.pack();
 
