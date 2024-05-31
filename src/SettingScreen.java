@@ -81,8 +81,13 @@ public class SettingScreen extends JFrame{
         pickColor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //c = Color.BLUE;
-                c = JColorChooser.showDialog(null, "Select a color", Color.BLACK);
+                c = Utils.colorInput("Select canvas background", Color.BLACK);
+
+                // if user cancels input, simply exit method
+                if (c == null) {
+                    return;
+                }
+
                 pickColor.setBackground(c);
                 // button text becomes white when BG is too dark
                 pickColor.setForeground(
@@ -126,6 +131,7 @@ public class SettingScreen extends JFrame{
                         //close setting screen
                         settingFrame.dispose();
                     } else{
+                        System.out.println("hi");
                         JFrame frame = new JFrame("Swing Paint");
                         frame.setSize(600, 600);
                         // make sure when frame is closed, program terminates

@@ -86,7 +86,12 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
     }
 
     private void color() {
-        Color c = Utils.colorInput(Color.BLACK);
+        Color c = Utils.colorInput("Select brush color", Color.BLACK);
+
+        // if user cancels input, simply exit method
+        if (c == null) {
+            return;
+        }
 
         // button itself showcases the chosen color
         colorBtn.setBackground(c);
@@ -101,7 +106,13 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
     }
 
     private void bgColor() {
-        Color bg = Utils.colorInput(Color.WHITE);
+        Color bg = Utils.colorInput("Select background color", Color.WHITE);
+
+        // if user cancels input, simply exit method
+        if (bg == null) {
+            return;
+        }
+
         bgColorBtn.setBackground(bg);
 
         // button text becomes white when BG is too dark
