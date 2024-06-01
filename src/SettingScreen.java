@@ -39,10 +39,10 @@ public class SettingScreen extends JFrame {
         //top panel - textFields
         JLabel label = new JLabel("Lauder's Colors");
         label.setForeground(Color.BLUE);//set color
-        label.setFont(new Font("Brush Script MT", Font.PLAIN, 22));//set font and size
+        label.setFont(new Font("Brush Script MT", Font.PLAIN, 35));//set font and size
         topPanel.add(label);
 
-        JLabel warning = new JLabel("<html>Dimensions should each be 600 or greater, <br> otherwise canvas size is set to 700x700 automatically.</html>");
+        JLabel warning = new JLabel("<html> Input canvas dimensions. Minimum size - 600x600.</html>");
         warning.setFont(new Font("Serif", Font.PLAIN, 14));
         topPanel.add(warning);
 
