@@ -72,6 +72,7 @@ public class SettingScreen extends JFrame {
         bottomPanel.add(submit);
 
         submit.addActionListener(e -> {
+            // get user input from text fields
             String userHeight = enterHeight.getText();
             String userLength = enterLength.getText();
 
@@ -97,12 +98,13 @@ public class SettingScreen extends JFrame {
                 return;
             }
 
+            // if smaller than min dimensions, snap to min dimensions
             if (height < 600 || length < 600) {
-                height = 700;
-                length = 700;
+                height = 600;
+                length = 600;
             }
 
-            JFrame frame = new JFrame("Swing Paint");
+            JFrame frame = new JFrame("Lauder's Colors");
 
             // make sure when frame is closed, program terminates
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

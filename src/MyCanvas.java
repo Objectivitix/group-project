@@ -122,11 +122,18 @@ public class MyCanvas extends JPanel {
     }
 
     public void setBGImage(String filePath) {
+        // first we create the image with dimensions equal to canvas's
         image = Utils.createImage(filePath, getWidth(), getHeight());
+
+        // then we update graphics object, enabling antialiasing as usual
         g2 = (Graphics2D) image.getGraphics();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        // finally, make sure this new g2 has our color & brush size too
         setColor(color);
         setBrushSize(brushSize);
+
+        // aaaand update everything on the actual display
         repaint();
     }
 
@@ -143,17 +150,22 @@ public class MyCanvas extends JPanel {
 
     public void setBrushSize(float size) {
         brushSize = size;
+
+        // sets BasicStroke with our brush size, and round end caps for smooth freehanding
         g2.setStroke(new BasicStroke(size, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
     }
 
     public void saveAs(String filePath) {
+        // create new BufferedImage with dimensions equal to canvas's
         Rectangle rect = getBounds();
-        BufferedImage image = new BufferedImage(rect.width, rect.height, BufferedImage.TYPE_INT_ARGB);
-        paint(image.getGraphics());
+        BufferedImage img = new BufferedImage(rect.width, rect.height, BufferedImage.TYPE_INT_ARGB);
+
+        // paint our canvas on this image's graphics, effectively copying it
+        paint(img.getGraphics());
 
         try {
-            // Use the ImageIO to write the image to a file
-            ImageIO.write(image, "png", new File(filePath));
+            // use the ImageIO to write the image to a file
+            ImageIO.write(img, "png", new File(filePath));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
