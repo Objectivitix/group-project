@@ -42,7 +42,7 @@ public class SettingScreen extends JFrame {
         label.setFont(new Font("Brush Script MT", Font.PLAIN, 22));//set font and size
         topPanel.add(label);
 
-        JLabel warning = new JLabel("<html>Dimensions should each be 300 or greater, <br> otherwise canvas size is set to 700x700 automatically.</html>");
+        JLabel warning = new JLabel("<html>Dimensions should each be 600 or greater, <br> otherwise canvas size is set to 700x700 automatically.</html>");
         warning.setFont(new Font("Serif", Font.PLAIN, 14));
         topPanel.add(warning);
 
@@ -97,7 +97,7 @@ public class SettingScreen extends JFrame {
                 return;
             }
 
-            if (height < 300 || length < 300) {
+            if (height < 600 || length < 600) {
                 height = 700;
                 length = 700;
             }
