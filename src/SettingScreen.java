@@ -60,7 +60,7 @@ public class SettingScreen extends JFrame {
 
 
         //middle panel - color picking button
-        JButton pickColor = new JButton("Choose background color");
+        pickColor = new JButton("Choose background color");
         pickColor.addActionListener(e -> pickColorPopup());
         middlePanel.add(pickColor);
 
