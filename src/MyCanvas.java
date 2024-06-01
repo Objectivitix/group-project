@@ -97,6 +97,12 @@ public class MyCanvas extends JPanel {
         // set brush color back to black
         setColor(Color.BLACK);
 
+        //set hasBgImage back to false
+        hasBGImage = false;
+
+        //set bgColor variable to white for eraser
+        bgColor = Color.white;
+
         // update everything
         repaint();
     }
@@ -109,6 +115,7 @@ public class MyCanvas extends JPanel {
 
         // set setPaint() method back to chosen color
         setColor(color);
+        hasBGImage = false;
 
         // update everything
         repaint();
