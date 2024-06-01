@@ -23,6 +23,7 @@ public class MyCanvas extends JPanel {
     //boolean to determine eraser color
     private boolean hasBGImage = false;
 
+
     public MyCanvas(Color bg) {
         bgColor = bg;
 
@@ -57,31 +58,27 @@ public class MyCanvas extends JPanel {
         });
     }
 
-    private void initializeGraphics() {
-        // make an image to draw on
-        image = createImage(getWidth(), getHeight());
-
-        // get graphics context from image
-        g2 = (Graphics2D) image.getGraphics();
-
-        // enable antialiasing (makes graphics smoother by softening lines and blurring edges)
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        // set initial brush size to 1
-        setBrushSize(1);
-
-        // reset canvas using our own method
-        reset();
-
-        setBGColor(bgColor);
-    }
-
     // `paintComponent` is called by `repaint` method,
     // so it helps us update the canvas
     @Override
     protected void paintComponent(Graphics g) {
         if (image == null) {
-            initializeGraphics();
+            // if there's no image to draw on, make one
+            image = createImage(getWidth(), getHeight());
+
+            // get graphics context from image
+            g2 = (Graphics2D) image.getGraphics();
+
+            // enable antialiasing (makes graphics smoother by softening lines and blurring edges)
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            // set initial brush size to 1
+            setBrushSize(1);
+
+            // reset canvas using our own method
+            reset();
+
+            setBGColor(bgColor);
         }
 
         // update the image by drawing it again
@@ -102,7 +99,7 @@ public class MyCanvas extends JPanel {
     }
 
     public void setBGColor(Color bg) {
-        bgColor = bg;
+        this.bgColor = bg;
 
         g2.setPaint(bgColor);
         g2.fillRect(0, 0, getSize().width, getSize().height);
@@ -135,14 +132,14 @@ public class MyCanvas extends JPanel {
     }
 
     public void setBrushSize(float size) {
-        brushSize = size;
+        this.brushSize = size;
         g2.setStroke(new BasicStroke(size, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
     }
 
     public void saveAs(String filePath) {
-        Rectangle rect = getBounds();
+        Rectangle rect = this.getBounds();
         BufferedImage image = new BufferedImage(rect.width, rect.height, BufferedImage.TYPE_INT_ARGB);
-        paint(image.getGraphics());
+        this.paint(image.getGraphics());
 
         try {
             // Use the ImageIO to write the image to a file

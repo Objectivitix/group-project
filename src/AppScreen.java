@@ -2,17 +2,18 @@ import javax.swing.*;
 import java.awt.*;
 
 public class AppScreen extends JPanel {
-    public AppScreen(Color bg, int height, int length) {
+    public AppScreen(Color bg, int h, int l) {
         // set dimension and layout
-        setPreferredSize(new Dimension(length, height));
-        setLayout(new BorderLayout());
+        this.setPreferredSize(new Dimension(l, h));
+        this.setLayout(new BorderLayout());
 
         // create and add canvas to screen
         MyCanvas canvas = new MyCanvas(bg);
-        add(canvas, BorderLayout.CENTER);
+        this.add(canvas, BorderLayout.CENTER);
+
+        Toolbar toolbar = new Toolbar(canvas);
 
         // add toolbar ABOVE canvas (hence NORTH)
-        Toolbar toolbar = new Toolbar(canvas);
-        add(toolbar, BorderLayout.NORTH);
+        this.add(toolbar, BorderLayout.NORTH);
     }
 }
