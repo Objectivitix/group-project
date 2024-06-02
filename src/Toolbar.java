@@ -40,6 +40,14 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
         colorBtn.setBorder(new RoundedBorder(5));
         colorBtn.addActionListener(this);
 
+        JButton freehandButton = new JButton("Freehand");
+        JButton rectangleButton = new JButton("Rectangle");
+        JButton circleButton = new JButton("Circle");
+
+        freehandButton.addActionListener(e -> canvas.selectFreehand());
+        rectangleButton.addActionListener(e -> canvas.selectRectangle());
+        circleButton.addActionListener(e -> canvas.selectCircle());
+
         // slider is bound to stateChanged logic below
         sizeLabel = new JLabel("Size: 1");
         sizeSlider = new JSlider(1, 100, 8);
@@ -57,6 +65,9 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
 
         // add buttons to toolbar
         add(colorBtn);
+        add(freehandButton);
+        add(rectangleButton);
+        add(circleButton);
         add(eraseBtn);
         add(bgColorBtn);
         add(bgImageBtn);

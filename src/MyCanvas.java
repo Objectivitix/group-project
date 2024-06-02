@@ -57,15 +57,21 @@ public class MyCanvas extends JPanel {
                 if (!selectedShape.equals("freehand")) {
                     endX = e.getX();
                     endY = e.getY();
-                    shapes.add(new Shape(selectedShape, startX, startY, endX, endY));
+                    int x = Math.min(startX, endX);//the x-coordinate top left of the shape, the Math.min returns the smaller int of the 2 variables
+                    int y = Math.min(startY, endY);//the y-coordinate top left of the shape
+                    int width = Math.abs(endX - startX);//Math.abs(100) is 100 pixels, basically where coordinate the mouse is released - the coordinate mouse clicked
+                    int height = Math.abs(endY - startY);
+
+                    if (selectedShape.equals("rectangle")) {
+                        g2.drawRect(x, y, width, height); //draw the rectangle and its width, height, coordinate if the rectangle is picked
+                    } else if (selectedShape.equals("circle")) {
+                        g2.drawOval(x, y, width, height); //draw the rectangle and its width, height, coordinate if the rectangle is picked
+                    }
                     drawing = false;
                     repaint();
                 }
             }
         });
-
-
-
 
         addMouseMotionListener(new MouseMotionAdapter() {
             public void mouseDragged(MouseEvent e) {
@@ -91,23 +97,6 @@ public class MyCanvas extends JPanel {
                 }
             }
         });
-
-        // Making extraaaaa buttons, nothing much, dont bother about this
-        JPanel buttonPanel = new JPanel(); //
-        JButton freehandButton = new JButton("Freehand");
-        JButton rectangleButton = new JButton("Rectangle");
-        JButton circleButton = new JButton("Circle");
-
-        freehandButton.addActionListener(e -> selectFreehand());
-        rectangleButton.addActionListener(e -> selectRectangle());
-        circleButton.addActionListener(e -> selectCircle());
-
-        buttonPanel.add(freehandButton);
-        buttonPanel.add(rectangleButton);
-        buttonPanel.add(circleButton);
-
-        // Add button panel to the top of the canvas
-        add(buttonPanel, BorderLayout.NORTH);
     }
 
     private void initializeGraphics() {
@@ -141,19 +130,6 @@ public class MyCanvas extends JPanel {
         // update the image by drawing it again
         g.drawImage(image, 0, 0, null);
 
-        for (Shape shape : shapes) {
-            int x = Math.min(shape.startX, shape.endX);// The x-coordinate top left of the shape
-            int y = Math.min(shape.startY, shape.endY);// The y-coordinate top left of the shape
-            int width = Math.abs(shape.endX - shape.startX);// Width of the shape
-            int height = Math.abs(shape.endY - shape.startY);// Height of the shape
-
-            if (shape.type.equals("rectangle")) {
-                g.drawRect(x, y, width, height);// Draw the rectangle
-            } else if (shape.type.equals("circle")) {
-                g.drawOval(x, y, width, height);// Draw the circle
-            }
-        }
-
         if (drawing && !selectedShape.equals("freehand")) {
             int x = Math.min(startX, endX);//the x-coordinate top left of the shape, the Math.min returns the smaller int of the 2 variables
             int y = Math.min(startY, endY);//the y-coordinate top left of the shape
@@ -166,8 +142,6 @@ public class MyCanvas extends JPanel {
                 g.drawOval(x, y, width, height); //draw the rectangle and its width, height, coordinate if the rectangle is picked
             }
         }
-
-
     }
 
     // the following methods are used in toolbar
