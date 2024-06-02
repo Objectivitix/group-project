@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyCanvas extends JPanel {
     // we need an image to draw on - this is the actual "canvas"
@@ -23,6 +25,14 @@ public class MyCanvas extends JPanel {
     //boolean to determine eraser color
     private boolean hasBGImage = false;
 
+    // Shapes list to store rectangles and circles
+    private List<Shape> shapes = new ArrayList<>();
+
+    // Variables to track drawing mode
+    private String selectedShape = "freehand";
+    private boolean drawing = false;
+    private int startX, startY, endX, endY;
+
     public MyCanvas(Color bg) {
         bgColor = bg;
 
@@ -33,8 +43,29 @@ public class MyCanvas extends JPanel {
             public void mousePressed(MouseEvent e) {
                 oldX = e.getX();
                 oldY = e.getY();
+                if (selectedShape.equals("freehand")) {
+                    currentX = oldX;
+                    currentY = oldY;
+                    drawing = true;
+                } else {
+                    startX = oldX;
+                    startY = oldY;
+                    drawing = true;
+                }
+            }
+            public void mouseReleased(MouseEvent e) {
+                if (!selectedShape.equals("freehand")) {
+                    endX = e.getX();
+                    endY = e.getY();
+                    shapes.add(new Shape(selectedShape, startX, startY, endX, endY));
+                    drawing = false;
+                    repaint();
+                }
             }
         });
+
+
+
 
         addMouseMotionListener(new MouseMotionAdapter() {
             public void mouseDragged(MouseEvent e) {
@@ -42,7 +73,7 @@ public class MyCanvas extends JPanel {
                 currentX = e.getX();
                 currentY = e.getY();
 
-                if (g2 != null) {
+                if (g2 != null&& selectedShape.equals("freehand")) {
                     // draw line if g2 context not null
                     g2.drawLine(oldX, oldY, currentX, currentY);
 
@@ -53,8 +84,30 @@ public class MyCanvas extends JPanel {
                     oldX = currentX;
                     oldY = currentY;
                 }
+                else if (!selectedShape.equals("freehand")) {
+                    endX = currentX;
+                    endY = currentY;
+                    repaint();
+                }
             }
         });
+
+        // Making extraaaaa buttons, nothing much, dont bother about this
+        JPanel buttonPanel = new JPanel(); //
+        JButton freehandButton = new JButton("Freehand");
+        JButton rectangleButton = new JButton("Rectangle");
+        JButton circleButton = new JButton("Circle");
+
+        freehandButton.addActionListener(e -> selectFreehand());
+        rectangleButton.addActionListener(e -> selectRectangle());
+        circleButton.addActionListener(e -> selectCircle());
+
+        buttonPanel.add(freehandButton);
+        buttonPanel.add(rectangleButton);
+        buttonPanel.add(circleButton);
+
+        // Add button panel to the top of the canvas
+        add(buttonPanel, BorderLayout.NORTH);
     }
 
     private void initializeGraphics() {
@@ -80,12 +133,41 @@ public class MyCanvas extends JPanel {
     // so it helps us update the canvas
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         if (image == null) {
             initializeGraphics();
         }
 
         // update the image by drawing it again
         g.drawImage(image, 0, 0, null);
+
+        for (Shape shape : shapes) {
+            int x = Math.min(shape.startX, shape.endX);// The x-coordinate top left of the shape
+            int y = Math.min(shape.startY, shape.endY);// The y-coordinate top left of the shape
+            int width = Math.abs(shape.endX - shape.startX);// Width of the shape
+            int height = Math.abs(shape.endY - shape.startY);// Height of the shape
+
+            if (shape.type.equals("rectangle")) {
+                g.drawRect(x, y, width, height);// Draw the rectangle
+            } else if (shape.type.equals("circle")) {
+                g.drawOval(x, y, width, height);// Draw the circle
+            }
+        }
+
+        if (drawing && !selectedShape.equals("freehand")) {
+            int x = Math.min(startX, endX);//the x-coordinate top left of the shape, the Math.min returns the smaller int of the 2 variables
+            int y = Math.min(startY, endY);//the y-coordinate top left of the shape
+            int width = Math.abs(endX - startX);//Math.abs(100) is 100 pixels, basically where coordinate the mouse is released - the coordinate mouse clicked
+            int height = Math.abs(endY - startY);
+
+            if (selectedShape.equals("rectangle")) {
+                g.drawRect(x, y, width, height); //draw the rectangle and its width, height, coordinate if the rectangle is picked
+            } else if (selectedShape.equals("circle")) {
+                g.drawOval(x, y, width, height); //draw the rectangle and its width, height, coordinate if the rectangle is picked
+            }
+        }
+
+
     }
 
     // the following methods are used in toolbar
@@ -102,6 +184,9 @@ public class MyCanvas extends JPanel {
 
         //set bgColor variable to white for eraser
         bgColor = Color.white;
+
+        //delete the shapes WOOHOOO
+        shapes.clear();
 
         // update everything
         repaint();
@@ -181,5 +266,31 @@ public class MyCanvas extends JPanel {
 
     public void setHasBGImage(boolean hasBGImage) {
         this.hasBGImage = hasBGImage;
+    }
+
+    // Methods to set the selected shape
+    public void selectFreehand() {
+        selectedShape = "freehand";
+    }
+
+    public void selectRectangle() {
+        selectedShape = "rectangle";
+    }
+
+    public void selectCircle() {
+        selectedShape = "circle";
+    }
+    // Shape class to store shape information
+    private static class Shape {
+        String type;
+        int startX, startY, endX, endY;
+
+        Shape(String type, int startX, int startY, int endX, int endY) {
+            this.type = type;
+            this.startX = startX;
+            this.startY = startY;
+            this.endX = endX;
+            this.endY = endY;
+        }
     }
 }

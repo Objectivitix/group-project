@@ -10,8 +10,7 @@ public class Main {
         // center it relative to entire device screen
         frame.setLocationRelativeTo(null);
 
-        ClickandDrop lol = new ClickandDrop();
-        lol.setVisible(true);
+
 
         // make sure when frame is closed, program terminates
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

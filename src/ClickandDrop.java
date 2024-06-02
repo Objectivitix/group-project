@@ -107,10 +107,5 @@ public class ClickandDrop extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> { //ensure that the creation and display of the GUI happen on the EDT what ever the fuck EDT is
-            ClickandDrop shapeDrawer = new ClickandDrop();
-            shapeDrawer.setVisible(true);
-        });
-    }
+
 }
