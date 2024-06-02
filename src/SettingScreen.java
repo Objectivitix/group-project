@@ -23,6 +23,7 @@ public class SettingScreen extends JFrame {
         settingFrame.setTitle("New Canvas");
         settingFrame.setSize(400, 300);//Setting the size of the frame
         settingFrame.setLayout(null);//Setting the layout of the frame to null
+        settingFrame.setLocationRelativeTo(null); // center wrt viewport
         settingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//Setting the close operation to exit on close(when GUI is closed program stops)
 
         //Make panels
@@ -42,7 +43,7 @@ public class SettingScreen extends JFrame {
         label.setFont(new Font("Brush Script MT", Font.PLAIN, 35));//set font and size
         topPanel.add(label);
 
-        JLabel warning = new JLabel("<html> Input canvas dimensions. Minimum size - 600x600.</html>");
+        JLabel warning = new JLabel("<html> Input canvas dimensions. Minimum size - 750x300.</html>");
         warning.setFont(new Font("Serif", Font.PLAIN, 14));
         topPanel.add(warning);
 
@@ -99,10 +100,8 @@ public class SettingScreen extends JFrame {
             }
 
             // if smaller than min dimensions, snap to min dimensions
-            if (height < 600 || length < 600) {
-                height = 600;
-                length = 600;
-            }
+            if (height < 300) height = 300;
+            if (length < 750) length = 750;
 
             JFrame frame = new JFrame("Lauder's Colors");
 
@@ -112,6 +111,9 @@ public class SettingScreen extends JFrame {
             // add screen and resize frame using pack
             frame.add(new AppScreen(c, height, length));
             frame.pack();
+
+            // center frame wrt viewport
+            frame.setLocationRelativeTo(null);
 
             // make everything visible
             frame.setVisible(true);

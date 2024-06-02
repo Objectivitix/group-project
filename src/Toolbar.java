@@ -40,9 +40,13 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
         colorBtn.setBorder(new RoundedBorder(5));
         colorBtn.addActionListener(this);
 
-        JButton freehandButton = new JButton("Freehand");
-        JButton rectangleButton = new JButton("Rectangle");
-        JButton circleButton = new JButton("Circle");
+        JButton freehandButton = new JButton(Utils.icon("src/brush.png"));
+        JButton rectangleButton = new JButton(Utils.icon("src/square.png"));
+        JButton circleButton = new JButton(Utils.icon("src/circle.png"));
+
+        freehandButton.setBorder(new RoundedBorder(5));
+        rectangleButton.setBorder(new RoundedBorder(5));
+        circleButton.setBorder(new RoundedBorder(5));
 
         freehandButton.addActionListener(e -> canvas.selectFreehand());
         rectangleButton.addActionListener(e -> canvas.selectRectangle());
@@ -55,11 +59,11 @@ public class Toolbar extends JPanel implements ActionListener, ChangeListener {
         sizeSlider.addChangeListener(this);
 
         // these buttons are displayed as icons for smoother UI
-        downloadBtn = new JButton(Utils.icon("src/save-as.png", 15, 15));
+        downloadBtn = new JButton(Utils.icon("src/save-as.png"));
         downloadBtn.setBorder(new RoundedBorder(5));
         downloadBtn.addActionListener(this);
 
-        eraseBtn = new JButton(Utils.icon("src/eraser.png", 15, 15));
+        eraseBtn = new JButton(Utils.icon("src/eraser.png"));
         eraseBtn.setBorder(new RoundedBorder(5));
         eraseBtn.addActionListener(this);
 

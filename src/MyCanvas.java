@@ -43,6 +43,7 @@ public class MyCanvas extends JPanel {
             public void mousePressed(MouseEvent e) {
                 oldX = e.getX();
                 oldY = e.getY();
+
                 if (selectedShape.equals("freehand")) {
                     currentX = oldX;
                     currentY = oldY;
@@ -53,10 +54,12 @@ public class MyCanvas extends JPanel {
                     drawing = true;
                 }
             }
+
             public void mouseReleased(MouseEvent e) {
                 if (!selectedShape.equals("freehand")) {
                     endX = e.getX();
                     endY = e.getY();
+
                     int x = Math.min(startX, endX);//the x-coordinate top left of the shape, the Math.min returns the smaller int of the 2 variables
                     int y = Math.min(startY, endY);//the y-coordinate top left of the shape
                     int width = Math.abs(endX - startX);//Math.abs(100) is 100 pixels, basically where coordinate the mouse is released - the coordinate mouse clicked
@@ -67,6 +70,7 @@ public class MyCanvas extends JPanel {
                     } else if (selectedShape.equals("circle")) {
                         g2.drawOval(x, y, width, height); //draw the rectangle and its width, height, coordinate if the rectangle is picked
                     }
+
                     drawing = false;
                     repaint();
                 }
@@ -109,13 +113,14 @@ public class MyCanvas extends JPanel {
         // enable antialiasing (makes graphics smoother by softening lines and blurring edges)
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // set initial brush size to 1
-        setBrushSize(1);
-
-        // reset canvas using our own method
-        reset();
-
+        // set initial BG color
         setBGColor(bgColor);
+        g2.setPaint(bgColor);
+        g2.fillRect(0, 0, getSize().width, getSize().height);
+
+        // set initial brush color and size
+        setBrushSize(1);
+        setColor(Color.BLACK);
     }
 
     // `paintComponent` is called by `repaint` method,
@@ -254,6 +259,7 @@ public class MyCanvas extends JPanel {
     public void selectCircle() {
         selectedShape = "circle";
     }
+
     // Shape class to store shape information
     private static class Shape {
         String type;

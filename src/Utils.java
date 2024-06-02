@@ -28,6 +28,11 @@ public class Utils {
         );
     }
 
+    // convenience overload for toolbar buttons
+    public static ImageIcon icon(String filePath) {
+        return icon(filePath, 15, 15);
+    }
+
     // creates an Image of specified dimensions that works with graphics objects
     public static Image createImage(String filePath, int width, int height) {
         return toBufferedImage(icon(filePath, width, height).getImage());
